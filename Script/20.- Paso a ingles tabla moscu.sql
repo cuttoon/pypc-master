@@ -1,0 +1,11 @@
+update sai_declaracion_moscu set declaration_name = 'Accountability for outcomes.' where id = 1;
+update sai_declaracion_moscu set declaration_name = 'Strategic approach to public auditing.' where id = 2;
+update sai_declaracion_moscu set declaration_name = 'Provision of audit-based advice.' where id = 3;
+update sai_declaracion_moscu set declaration_name = 'The principle of availability and openness of data, source code and algorithms.' where id = 4;
+update sai_declaracion_moscu set declaration_name = 'Data analytics in audits.' where id = 5;
+update sai_declaracion_moscu set declaration_name = 'SAIs can foster an experimental mindset.' where id = 6;
+update sai_declaracion_moscu set declaration_name = 'Managing systemic risks in the government.' where id = 7;
+update sai_declaracion_moscu set declaration_name = 'Auditors of the future.' where id = 8;
+update sai_declaracion_moscu set declaration_name = 'To address inclusiveness.' where id = 9;
+update sai_declaracion_moscu set declaration_name = 'Establishing productive interaction, enhancing cooperation and communication.' where id = 10;
+commit;

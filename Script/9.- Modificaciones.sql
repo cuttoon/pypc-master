@@ -1,0 +1,12 @@
+Update SAI_USUARIOS set genero = 'M',pais_id=190 where ID='1';
+Update SAI_USUARIOS set genero = 'M',pais_id=2 where ID='3';
+Update SAI_USUARIOS set genero = 'M',pais_id=190 where ID='5';
+Update SAI_USUARIOS set genero = 'F',pais_id=190 where ID='6';
+Update SAI_USUARIOS set genero = 'M',pais_id=190 where ID='7';
+Update SAI_USUARIOS set genero = 'M',pais_id=190 where ID='8';
+Update SAI_USUARIOS set genero = 'M',pais_id=61 where ID='10';
+Update SAI_USUARIOS set genero = 'F',pais_id=190 where ID='11';
+Update SAI_USUARIOS set genero = 'M',pais_id=190 where ID='13';
+Update SAI_USUARIOS set genero = 'M',pais_id=71 where ID='14';
+Update SAI_USUARIOS set genero = 'F',pais_id=190 where ID='15';
+Update SAI_USUARIOS set genero = 'M',pais_id=190 where ID='16';
