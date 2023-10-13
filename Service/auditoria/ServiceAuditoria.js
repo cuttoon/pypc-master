@@ -1,7 +1,6 @@
 const { parseJSON } = require('jquery');
 const oracledb = require('oracledb');
 const db = require('../../Settings/Database/database');
-const { deleteDeclaracion, createDeclaracion } = require('../clasification/ServicesMoscu');
 const { createOds, deleteOds } = require('../clasification/ServicesOds');
 const { deleteTag, createTag, getTag, newTag } = require('../clasification/ServicesTag');
 const { deleteParticipante, createParticipante } = require('../participant/ServiceParticipant');
@@ -16,13 +15,6 @@ const parseOds = (data, report) => {
     });
 };
 
-const parseDeclaration = (data, report) => {
-    return data.map(ele => {
-        ele.report_id = report;
-        ele.declaration_moscu_id = ele.declaration_moscu_id ? parseInt(ele.declaration_moscu_id) : ele.declaration_moscu_id;
-        return ele;
-    });
-};
 
 const parseTag = (data, report) => {
     return data.map(ele => {
@@ -62,7 +54,7 @@ module.exports = {
         data.cursor_p = { type: oracledb.CURSOR, dir: oracledb.BIND_OUT };    
         data.cursor_i = { type: oracledb.CURSOR, dir: oracledb.BIND_OUT };    
         const events = await db.procedureExecuteCursorsArray(`BEGIN PG_SAI_CONSULTA.PA_SAI_GET_DETALLE_AUDITORIA(:auditoria_id,:cursor_a,:cursor_o,:cursor_m,:cursor_p,:cursor_i); END;`, data);
-        return { auditoria: events.cursor_a, ods: events.cursor_o, moscu: events.cursor_m, participante: events.cursor_p, informe: events.cursor_i };
+        return { auditoria: events.cursor_a, ods: events.cursor_o, participante: events.cursor_p, informe: events.cursor_i };
     },
     getSimpleSearch: async(data) => {
         //data.buscar= { type: oracledb.STRING ,maxSize: 200};
@@ -86,7 +78,7 @@ module.exports = {
         // };
         
 
-        const cursor =  await db.procedureExecuteCursor(`BEGIN PG_SAI_CONSULTA.PA_SAI_GET_AUDITORIA_ADVANCE(:idiomas,:ambito,:pais,:inicio,:fin,:tipo,:categoria,:ods,:moscu,:anio ,:cursor); END;`, data);
+        const cursor =  await db.procedureExecuteCursor(`BEGIN PG_SAI_CONSULTA.PA_SAI_GET_AUDITORIA_ADVANCE(:idiomas,:ambito,:pais,:inicio,:fin,:tipo,:categoria,:ods,:anio ,:cursor); END;`, data);
         return cursor.cursor;
     },
 
@@ -226,7 +218,7 @@ module.exports = {
         //const exponents = await createExponents(data.expositores);
 
         let _declaration = await deleteDeclaracion(data.report_id);
-        const declaration_ = await createDeclaracion(parseDeclaration(data.moscu, data.report_id));
+        const declaration_ = await createDeclaracion(parseDeclaration(data.report_id));
 
         let _tag = await deleteTag(data.report_id);
         const tag_ = await createTag(parseTag(data.tag,data.report_id));
@@ -243,8 +235,8 @@ module.exports = {
         data.cursor_o = { type: oracledb.CURSOR, dir: oracledb.BIND_OUT };
         data.cursor_m = { type: oracledb.CURSOR, dir: oracledb.BIND_OUT };    
         data.cursor_t = { type: oracledb.CURSOR, dir: oracledb.BIND_OUT };    
-        const events = await db.procedureExecuteCursorsArray(`BEGIN PG_SAI_CONSULTA.PA_SAI_GET_CLASIFICACIONES(:auditoria_id,:cursor_o,:cursor_m,:cursor_t); END;`, data);
-        return { ods: events.cursor_o, moscu: events.cursor_m, tag: events.cursor_t};
+        const events = await db.procedureExecuteCursorsArray(`BEGIN PG_SAI_CONSULTA.PA_SAI_GET_CLASIFICACIONES(:auditoria_id,:cursor_o,:cursor_t); END;`, data);
+        return { ods: events.cursor_o, tag: events.cursor_t};
     },
     
     createInforme: async(data) => {

@@ -19,11 +19,7 @@ module.exports = {
         const cursor = await db.procedureExecuteCursor(`BEGIN PG_SAI_CONSULTA.PA_SAI_ODS(:cursor); END;`, data);
         return cursor.cursor;
     },
-    getallDeclaracionmoscu: async() => {
-        const data = { cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }};
-        const cursor = await db.procedureExecuteCursor(`BEGIN PG_SAI_CONSULTA.PA_SAI_DECLARACION_MOSCU(:cursor); END;`, data);
-        return cursor.cursor;
-    },
+
     getallAmbito:async() => {
         const data = { cursor: { type: oracledb.CURSOR, dir: oracledb.BIND_OUT }};
         const cursor = await db.procedureExecuteCursor(`BEGIN PG_SAI_CONSULTA.PA_SAI_AMBITO(:cursor); END;`, data);

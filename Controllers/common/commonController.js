@@ -25,14 +25,6 @@ module.exports = {
             resp.status(500).send({ statusCode: 500, message: err.message });
         }            
     },
-    getallDeclaracionmoscus: async(req, resp, next) => {
-        try {
-            const temas = await userdb.getallDeclaracionmoscu();
-            resp.send({ result: temas });
-        } catch (err) {
-            resp.status(500).send({ statusCode: 500, message: err.message });
-        }            
-    },
     getallAmbitos: async(req, resp, next) => {
         try {
             const temas = await userdb.getallAmbito();
