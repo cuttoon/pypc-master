@@ -15,21 +15,11 @@ module.exports = {
     },
     createUser: async(req, resp, next) => {
         try { 
-            //const createUser = req.user.U_ID;
             const newUser = validateUser(req.body);
 
-            if(newUser.ids==undefined){
-                if (await existEmail(req.body.correo)) 
+            if (await existEmail(req.body.correo)) {
                 throw new CustomError({ correo: ['email already exists']}, 400);
             }
-
-            //newUser.user_id = createUser;
-            /* let result=null;
-            if(newUser.ids==undefined){
-                result = await userdb.createUser(newUser);
-            }else{
-                result = await userdb.updateUser(newUser);
-            } */
 
             let result = await userdb.createUser(newUser);
             resp.send({ result });
@@ -46,7 +36,7 @@ module.exports = {
         try {
             const updateUser = validateUser(req.body);
 
-            if(await existEmailUpdate(req.body.correo, req.body.ids)){
+            if(await existEmailUpdate(req.body.ids)){
                 throw new CustomError({ correo: ['email already exists']}, 400);
             }
 

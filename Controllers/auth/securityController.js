@@ -1,10 +1,12 @@
 const userdb   = require('../../Service/authService/Serviceaccount')
+const userdbUser   = require('../../Service/authService/Serviceusers')
 const { secret } = require('../../Settings/Enviroment/config');
 const bcrypt = require('bcrypt');
-//const jwt = require('jsonwebtoken');
+const { validateUser } = require('../../Models');
+const { existEmail } = require('../common');
 const {TokenSignup} =require('../../Settings/Server/midlewar/TokenService')
 module.exports = {
-    Singup: async(req, resp, next) => {
+    Signin: async(req, resp, next) => {
         
         try{
             const {email , password} = req.body;
@@ -20,13 +22,9 @@ module.exports = {
                
                 const payload = {
                     id: datavalidEmail.NUSU_ID,
-                    //is_staff: user.NUSU_IS_STAFF,
-                    //is_superuser: user.NUSU_IS_SUPERUSER,
                     rol: datavalidEmail.NUSU_ROLID
-                    //grupo: user.NEFS_ID
                 };   
-                const token = TokenSignup(payload, secret,'12h');
-                //jwt.sign(payload, secret, { expiresIn: '12h' });                    
+                const token = TokenSignup(payload, secret,'12h');                    
                 
                 return   resp.status(200).send({ IdCuenta : datavalidEmail.NUSU_ID,  IdRol : datavalidEmail.NUSU_ROLID, Nombre: datavalidEmail.CUSU_EMAIL, Token:token }) 
             } else {
@@ -36,6 +34,23 @@ module.exports = {
 
           }
         }catch(ex){
+            return resp.status(500).send({ statusCode: 500, message: ex.message }); 
+        }
+   
+    },
+    Signup: async(req, resp, next) => {
+        
+        try { 
+            const newUser = validateUser(req.body);
+
+            if (await existEmail(req.body.correo)) {
+                throw new CustomError({ correo: ['email already exists']}, 400);
+            }
+
+            let result = await userdbUser.createUser(newUser);
+            resp.send({ result });
+
+        } catch(ex){
             return resp.status(500).send({ statusCode: 500, message: ex.message }); 
         }
    
