@@ -3,25 +3,28 @@ const db = require('../../Settings/Database/database');
 
 module.exports = {
     createOds: async(data) => {
-        //data.ids = { type: oracledb.NUMBER, dir: oracledb.BIND_OUT, val:0};
         const options = {
             autoCommit: true,
             batchErrors: true,
-            bindDefs: {
-                report_id: { type: oracledb.NUMBER },
-                ods_id: { type: oracledb.NUMBER },
-                ids: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
-            }
         };
-        const ods = await db.manyExecute(`INSERT INTO SAI_AUDITORIA_ODS(ODS_ID,REPORT_ID) 
-        VALUES (:ods_id,:report_id) RETURNING id INTO :ids`, data, options);
-        return ods;
+        const ods = {
+            ods_id: data.ods_id,
+            report_id: data.report_id,
+        };
+
+        const insertedOds = await db.insertRow('SCAI_AUDITORIA_ODS', ods, options);
+        return insertedOds;
     },
     deleteOds: async(ids) => {
-        const result = await db.simpleExecute(`DELETE FROM SAI_AUDITORIA_ODS WHERE report_id= :ids `, [ids]);        
+        const options = {
+            autoCommit: true,
+            batchErrors: true,
+        };
+        const whereClause = `report_id= :ids`;
+        const parameters = [ids];
+        const result = await db.deleteRow('SCAI_AUDITORIA_ODS', whereClause, options);
         return result;
-    }
-    ,
+    },
 };
 
         

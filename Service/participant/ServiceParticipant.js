@@ -20,13 +20,12 @@ module.exports = {
                 
             
         };
-        //const participante = await db.bacherExecute(`INSERT INTO SAI_PARTICIPANTE(REPORT_ID, AMBITO_ID, PAIS_ID, ENTIDAD, OTRO_ID, ROL_ID) 
-        const participante = await db.manyExecute(`INSERT INTO SAI_PARTICIPANTE(REPORT_ID, AMBITO_ID, PAIS_ID, ENTIDAD, OTRO_ID, ROL_ID, TIPO_ENTIDAD_ID) 
-        VALUES (:report_id,:ambito_id,:pais_id,:entidad,:otro_id,:rol_id, :tipo_id) RETURNING ID INTO :ids`, data, options);
+        const participante = await db.manyExecute(`INSERT INTO SCAI_PARTICIPANTE(nnte_reportid, nnte_ambitoid, nnte_paisid, cnte_entidad, nnte_otroid, nnte_rolid, nnte_tipoentidadid) 
+        VALUES (:nnte_reportid,:nnte_ambitoid,:nnte_paisid,:cnte_entidad,:nnte_otroid,:nnte_rolid, :nnte_tipoentidadid) RETURNING nnte_id INTO :ids`, data, options);
         return participante;
     },
     deleteParticipante: async(ids) => {
-        const result = await db.simpleExecute(`DELETE FROM SAI_PARTICIPANTE WHERE report_id= :ids `, [ids]);        
+        const result = await db.simpleExecute(`DELETE FROM SCAI_PARTICIPANTE WHERE nnte_reportid= :ids `, [ids]);        
         return result;
     }
     ,

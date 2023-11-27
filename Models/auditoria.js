@@ -13,7 +13,7 @@ const auditoria = {
     ffin: 'string',
     imagen: 'string',
     ids:'number'
-
+    
 };
 
 const validateObj = (validate, data) => {

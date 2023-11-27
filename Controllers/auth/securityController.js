@@ -15,20 +15,20 @@ module.exports = {
     
                let datavalidEmail = await userdb.getUserbyEmail(email)
     
-               if (bcrypt.compareSync(password, datavalidEmail.PASSWORD)) {
+               if (bcrypt.compareSync(password, datavalidEmail.CUSU_PASSWORD)) {
                
                
                 const payload = {
-                    id: datavalidEmail.ID,
+                    id: datavalidEmail.NUSU_ID,
                     //is_staff: user.NUSU_IS_STAFF,
                     //is_superuser: user.NUSU_IS_SUPERUSER,
-                    rol: datavalidEmail.ROL_ID
+                    rol: datavalidEmail.NUSU_ROLID
                     //grupo: user.NEFS_ID
                 };   
                 const token = TokenSignup(payload, secret,'12h');
                 //jwt.sign(payload, secret, { expiresIn: '12h' });                    
                 
-                return   resp.status(200).send({ IdCuenta : datavalidEmail.ID,  IdRol : datavalidEmail.ROL_ID, Nombre: datavalidEmail.NOMBRE, Token:token }) 
+                return   resp.status(200).send({ IdCuenta : datavalidEmail.NUSU_ID,  IdRol : datavalidEmail.NUSU_ROLID, Nombre: datavalidEmail.CUSU_EMAIL, Token:token }) 
             } else {
                 return resp.status(401).send({statusCode: 400, message: "Datos inconsistente"});
             }

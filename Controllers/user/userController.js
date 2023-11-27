@@ -19,26 +19,45 @@ module.exports = {
             const newUser = validateUser(req.body);
 
             if(newUser.ids==undefined){
-                if (await existEmail(req.body.correo)) throw new CustomError({ correo: ['email already exists']}, 400);
-            }else{
-                if (await existEmailUpdate(req.body.correo,req.body.ids)) throw new CustomError({ correo: ['email already exists']}, 400);
+                if (await existEmail(req.body.correo)) 
+                throw new CustomError({ correo: ['email already exists']}, 400);
             }
 
             //newUser.user_id = createUser;
-            let result=null;
+            /* let result=null;
             if(newUser.ids==undefined){
                 result = await userdb.createUser(newUser);
             }else{
                 result = await userdb.updateUser(newUser);
-            }
-            
+            } */
+
+            let result = await userdb.createUser(newUser);
             resp.send({ result });
+
         } catch (err) {
             if (err instanceof CustomError) {
                 return next(err);  
             }
             resp.status(500).send({ statusCode: 500, message: err.message });
         } 
+    },
+
+    updateUser: async(req, resp, next) => {
+        try {
+            const updateUser = validateUser(req.body);
+
+            if(await existEmailUpdate(req.body.correo, req.body.ids)){
+                throw new CustomError({ correo: ['email already exists']}, 400);
+            }
+
+            let result = await userdb.updateUser(updateUser)
+            resp.send({ result });
+        } catch (err) {
+            if (err instanceof CustomError) {
+                return next(err);  
+            }
+            resp.status(500).send({ statusCode: 500, message: err.message });
+        }
     }
     
 };
