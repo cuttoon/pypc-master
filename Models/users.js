@@ -74,10 +74,6 @@ const validateUser = (data) => {
         case 3:            
             break;
         }
-
-        //data.is_staff = is_staff;
-        //data.is_superadmin = is_superadmin;
-        //data.is_active = parseInt(data.is_active);
         if(data.clave!=null){
             data.clave = bcrypt.hashSync(data.clave, 10);
         }

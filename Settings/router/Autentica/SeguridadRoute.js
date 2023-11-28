@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { Security } = require('../../../Controllers');
 const  { Filter , Destroy } = require('../../Server/midlewar/permissions');
-router.post('/Singup', Security.Signup);
-router.post('/Singin', Security.Signin);
+//registrar
+router.post('/Signup', Security.Signup);
+//loguear
+router.post('/Signin', Security.Signin);
 router.post('/Signoff', Destroy);
 
 

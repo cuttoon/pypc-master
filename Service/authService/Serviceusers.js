@@ -39,12 +39,10 @@ module.exports = {
         data.ids = { type: oracledb.NUMBER, dir: oracledb.BIND_INOUT ,val:data.ids};
         const newEvent = await db.procedureExecute(`BEGIN PG_SCAI_CONSULTA.PA_SCAI_UPDATE_USUARIO(
             :apellido,
-            :correo,
             :sexo,
             :ids,
             :nombre,
             :pais,
-            :clave,
             :rol); END;`, data); 
         return newEvent.ids;    
     }

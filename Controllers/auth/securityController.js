@@ -26,7 +26,7 @@ module.exports = {
                 };   
                 const token = TokenSignup(payload, secret,'12h');                    
                 
-                return   resp.status(200).send({ IdCuenta : datavalidEmail.NUSU_ID,  IdRol : datavalidEmail.NUSU_ROLID, Nombre: datavalidEmail.CUSU_EMAIL, Token:token }) 
+                return   resp.status(200).send({ IdCuenta : datavalidEmail.NUSU_ID,  IdRol : datavalidEmail.NUSU_ROLID, Nombre: datavalidEmail.NOMBRE, Token:token }) 
             } else {
                 return resp.status(401).send({statusCode: 400, message: "Datos inconsistente"});
             }
