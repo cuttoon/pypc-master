@@ -32,7 +32,7 @@ router.post('/getlistreasons',Filter, Auditoria.getlistreasons);
 
 router.post('/getMore', Auditoria.getMore);
 
-router.get('/getTag',Filter, Auditoria.getTag);
+router.get('/getTag', Auditoria.getTag);
 
 router.post('/tag',Filter, Auditoria.newTag);
 

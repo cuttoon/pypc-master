@@ -199,18 +199,12 @@ module.exports = {
         let _ods = await deleteOds(data.report_id);
         const ods_ = await createOds(parseOds(data.ods,data.report_id));
 
-        //const exponents = await createExponents(data.expositores);
-
-        let _declaration = await deleteDeclaracion(data.report_id);
-        const declaration_ = await createDeclaracion(parseDeclaration(data.report_id));
 
         let _tag = await deleteTag(data.report_id);
         const tag_ = await createTag(parseTag(data.tag,data.report_id));
 
-        //console.log(addEventIdToExponents(exponents.outBinds, data.evento_id));
         const result = {
             ods: ods_,
-            declaration: declaration_,
             tag: tag_
         };
         return result;

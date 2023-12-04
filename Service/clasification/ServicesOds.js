@@ -1,30 +1,30 @@
-const oracledb = require('oracledb');
-const db = require('../../Settings/Database/database');
+const oracledb = require("oracledb");
+const db = require("../../Settings/Database/database");
 
 module.exports = {
-    createOds: async(data) => {
-        const options = {
-            autoCommit: true,
-            batchErrors: true,
-        };
-        const ods = {
-            ods_id: data.ods_id,
-            report_id: data.report_id,
-        };
-
-        const insertedOds = await db.insertRow('SCAI_AUDITORIA_ODS', ods, options);
-        return insertedOds;
-    },
-    deleteOds: async(ids) => {
-        const options = {
-            autoCommit: true,
-            batchErrors: true,
-        };
-        const whereClause = `report_id= :ids`;
-        const parameters = [ids];
-        const result = await db.deleteRow('SCAI_AUDITORIA_ODS', whereClause, options);
-        return result;
-    },
+  createOds: async (data) => {
+    const options = {
+      autoCommit: true,
+      batchErrors: true,
+      bindDefs: {
+        report_id: { type: oracledb.NUMBER },
+        ods_id: { type: oracledb.NUMBER },
+        ids: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
+      },
+    };
+    const ods = await db.manyExecute(
+      `INSERT INTO SCAI_AUDITORIA_ODS(naod_odsid,naod_reportid) 
+        VALUES (:ods_id,:report_id) RETURNING naod_id INTO :ids`,
+      data,
+      options
+    );
+    return ods;
+  },
+  deleteOds: async (ids) => {
+    const result = await db.simpleExecute(
+      `DELETE FROM SCAI_AUDITORIA_ODS WHERE naod_reportid= :ids `,
+      [ids]
+    );
+    return result;
+  },
 };
-
-        
