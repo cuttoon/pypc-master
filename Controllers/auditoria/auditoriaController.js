@@ -257,14 +257,12 @@ module.exports = {
 
             req.body.categoria = parseInt(req.body.categoria);
             req.body.tipo = parseInt(req.body.tipo);
-            //req.body.fini = moment(req.body.fini).toDate()
             
             req.body.fini = moment(req.body.fini).toDate();
             req.body.ffin =moment(req.body.ffin).toDate();
             req.body.usuario= req.body.usuario;
 
             if (req.body.ids == 0 && (req.files.imagen==undefined ) ) {
-                //deleteFiles(req.files);
                 return next(400);
             }
 
@@ -273,10 +271,10 @@ module.exports = {
             const dataEvent = Object.assign({}, req.body);
             let result=null;
             if (req.body.ids==0) {
+
                 result= await userdb.createAuditoria(dataEvent);
             }
             else{
-                //Valida existencia del evento
                     result= await userdb.updateAuditoria(dataEvent); 
                }
             

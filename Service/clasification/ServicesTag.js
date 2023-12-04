@@ -6,24 +6,25 @@ module.exports = {
     const options = {
       autoCommit: true,
       batchErrors: true,
+      bindDefs: {
+        report_id: { type: oracledb.NUMBER },
+        tag_id: { type: oracledb.NUMBER },
+        ids: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT },
+      },
     };
-
-    const tag = {
-      report_id: data.report_id,
-      tag_id: data.tag_id,
-    };
-    const ods = await db.insertRow("SCAI_AUDITORIA_TAG", tag, options);
-    return ods;
+    const tag = await db.manyExecute(
+      `INSERT INTO SCAI_AUDITORIA_TAG(nata_tagid,nata_reportid) 
+    VALUES (:tag_id,:report_id) RETURNING nata_id INTO :ids`,
+      data,
+      options
+    );
+    return tag;
   },
   deleteTag: async (ids) => {
-    const options = {
-      autoCommit: true,
-      batchErrors: true,
-    };
-
-    const whereClause = `report_id= :ids`;
-    const parameters = [ids];
-    const result = await db.simpleExecute('SCAI_AUDITORIA_TAG', whereClause, options);
+    const result = await db.simpleExecute(
+      `DELETE FROM SCAI_AUDITORIA_TAG WHERE nata_reportid= :ids `,
+      [ids]
+    );
     return result;
   },
   getTag: async (req) => {
@@ -56,7 +57,7 @@ module.exports = {
     };
     const tag = await db.manyExecute(
       `INSERT INTO SCAI_TAG(ctag_name, ctag_normalized)
-         VALUES (:nombre,:normalizado) RETURNING ntag_id INTO :ids `,
+     VALUES (:nombre,:normalizado) RETURNING ntag_id INTO :ids `,
       element,
       options
     );

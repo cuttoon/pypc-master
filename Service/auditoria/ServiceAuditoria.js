@@ -200,12 +200,16 @@ module.exports = {
         const ods_ = await createOds(parseOds(data.ods,data.report_id));
 
 
-        let _tag = await deleteTag(data.report_id);
-        const tag_ = await createTag(parseTag(data.tag,data.report_id));
+        /* let _tag = await deleteTag(data.report_id);
+        const tag_ = await createTag(parseTag(data.tag,data.report_id)); */
 
-        const result = {
+        /* const result = {
             ods: ods_,
             tag: tag_
+        }; */
+
+        const result = {
+            ods: ods_
         };
         return result;
     },
