@@ -6,9 +6,9 @@ const cors = require('cors');
 const path = require('path');
 const pkg = require('../../package.json');
 const routes = require('../router');
-const authMiddleware = require('./midlewar/permissions');
-const errorHandler = require('./midlewar/errors');
-const dbConfig = require('../Enviroment/config');
+const authMiddleware = require('./middleware/permissions');
+const errorHandler = require('./middleware/errors');
+const dbConfig = require('../Environment/config');
 const { corsOptions } = require('../Cors');
 const { port, secret, serverUrl } = dbConfig;
 

@@ -1,7 +1,5 @@
 const auth = require('./Autentica/SeguridadRoute');
-const user = require('./User/UserRoute');
-const common = require('./Common/CommonRoute')
-const auditoria = require('./Auditoria/AuditoriaRoute')
+// const common = require('./Common/CommonRoute')
 const root = (app, next) => {
     const pkg = app.get('pkg');
     app.get('/', (req, res) => res.json({ name: pkg.name, version: pkg.version }));
@@ -25,8 +23,7 @@ const register = (app, routes, cb) => {
 
 module.exports = (app, next) => register(app, [
     auth, 
-    user,
-    common,  
-    auditoria,
+    
+      
     root, 
 ], next);
