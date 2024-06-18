@@ -10,7 +10,7 @@ const  { Filter , Destroy } = require('../../Server/middleware/permissions');
 
 
 module.exports = (app, nextMain) => {
-    app.use('/intosai/security', router);
+    app.use('/pypc/security', router);
     return nextMain();
 };
 
