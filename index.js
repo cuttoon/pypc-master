@@ -1,5 +1,5 @@
-const dbConfig = require('./Settings/Enviroment/config');
-const webServer = require('./Settings/Server/webServer');
+const dbConfig = require('./settings/Environment/config');
+const webServer = require('./settings/Server/webServer');
 const database = require('./Settings/Database/database');
 const defaultThreadPoolSize = 3;
 process.env.UV_THREADPOOL_SIZE = dbConfig.eventsPool.poolMax + defaultThreadPoolSize;
