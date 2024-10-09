@@ -10,7 +10,7 @@ router.post('/Signoff', Destroy);
 
 
 module.exports = (app, nextMain) => {
-    app.use('/intosai/security', router);
+    app.use('/pypc/security', router);
     return nextMain();
 };
 

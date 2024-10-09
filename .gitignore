@@ -1,0 +1,11 @@
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+coverage
+
+node_modules/
+
+dist

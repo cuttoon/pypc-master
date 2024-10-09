@@ -11,8 +11,6 @@ const errorHandler = require('./midlewar/errors');
 const dbConfig = require('../Enviroment/config');
 const { corsOptions } = require('../Cors');
 const { port, secret, serverUrl } = dbConfig;
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
 
 
 
@@ -32,7 +30,6 @@ const initialize = () => new Promise((resolve, reject) => {
     app.use('/media', express.static(path.join(path.resolve(), 'media')));
   
     app.use(authMiddleware(secret));
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     // Registrar rutas
     routes(app, (err) => {
         if (err) {

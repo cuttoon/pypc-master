@@ -1,7 +1,7 @@
 {
   "name": "intosai_servicios_backend",
   "version": "1.0.0",
-  "description": "Api Rest de Auditorias Cooperativas",
+  "description": "Api Rest de Participación Ciudadana",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -11,10 +11,9 @@
   "keywords": [
     "api",
     "rest",
-    "Intosai",
-    "Cooperativas"
+    "Intosai"
   ],
-  "author": "Peter Panana",
+  "author": "Karen",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
